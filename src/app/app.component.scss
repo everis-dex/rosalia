@@ -1,0 +1,95 @@
+@font-face {
+  font-family: "Roboto-flex";
+  src: url("../assets/fonts/RobotoFlex-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+app-chat-box {
+  position: absolute;
+  z-index: 0;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6vh;
+  height: 6vh;
+  color: white;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  background: linear-gradient(
+      0deg,
+      rgba(6, 0, 0, 0.02) 0%,
+      rgba(6, 0, 0, 0.02) 100%
+    ),
+    rgba(103, 133, 193, 0.5);
+  box-shadow: 0px 3.6110055446624756px 14.444022178649902px 2.708254337310791px
+    rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(40.82213592529297px);
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.lang-button {
+  margin-right: 1vh;
+  border-radius: 33px;
+  width: 20vh;
+  img{
+    margin-left:1vh;
+  }
+}
+
+.non-lang {
+  width: 8vh;
+  position: absolute;
+  top: 6vh;
+  align-self: flex-end;
+  z-index: 1;
+}
+
+select {
+  color: white;
+  font-family: "Roboto-flex", sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 32.867px;
+  background: linear-gradient(
+      0deg,
+      rgba(6, 0, 0, 0.02) 0%,
+      rgba(6, 0, 0, 0.02) 100%
+    ),
+    rgba(103, 133, 193, 0.5);
+  box-shadow: 0px 2.878481388092041px 11.513925552368164px 2.1588611602783203px
+    rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(32.54100799560547px);
+  height: 6vh;
+  width: 8vh;
+  option {
+    color: black;
+  }
+}
+
+.controls-container {
+  position: absolute;
+  top: 2vh;
+  right: 2vh;
+  display: flex;
+  align-items: center;
+}
+
+.expand-control,
+.audio-control {
+  display: inline-block;
+  margin-right: 1vh; /* Ajusta el espacio entre los divs con el valor que desees */
+}
+
+.lang-selector {
+  display: flex;
+  flex-direction: column;
+}
+
+

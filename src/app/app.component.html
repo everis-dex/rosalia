@@ -1,0 +1,22 @@
+<app-background></app-background>
+<app-chat-box></app-chat-box>
+<div class="controls-container">
+  <div class="lang-selector">
+    <button class="lang-button" (click)="toggleOptions()">Cambiar idioma {{ selectedLanguage }}<img src="../assets/images/arrow_down.svg"></button>
+    <ng-container *ngIf="expanded">
+      <button class="lang-button non-lang" (click)="selectLanguage(getOtherLanguage())">{{ getOtherLanguage() }}</button>
+    </ng-container>
+  </div>
+  <div class="expand-control">
+    <button class="expand" (click)="expandApp()">
+      <img [src]="iconWindowSrc" />
+    </button>
+  </div>
+  <div class="audio-control">
+    <div class="button-container">
+      <button class="audio" (click)="switchAudio()">
+        <img [src]="iconAudioSrc" />
+      </button>
+    </div>
+  </div>
+</div>

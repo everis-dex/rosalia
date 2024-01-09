@@ -1,0 +1,11 @@
+<div class="background-container">
+  <div class="animation-container">
+    <img src = "../../../assets/animations/fondo.gif" class="animation-frame"/>
+  </div>
+  <div class="animation-container">
+    <img [src]="staticSrc" class="animation-frame" (load)="pauseGif(staticSrc)"/>
+  </div>
+  <div class="animation-container">
+    <img src = "../../../assets/animations/particulas.gif" class="animation-frame"/>
+  </div>
+</div>

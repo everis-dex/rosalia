@@ -1,0 +1,5339 @@
+<div
+  #legalContainer
+  *ngIf="!isLegalAccepted && showContainer"
+  class="chat-container blur-mobile"
+>
+  <div class="message-list legal-container">
+    <div class="legal-header">
+      <div class="heart-header">
+        <p>NTT DATA</p>
+        <img
+          src="../../../assets/images/gl-heart.svg"
+          alt="Feito en Galicia con tecnoloxía de NTT DATA"
+        />
+        <p>DÍA DE GALICIA 2023</p>
+      </div>
+      <h1>ROSAL.IA <br/> DE CASTRO</h1>
+    </div>
+    <div class="legal-text">
+      <p>
+        {{"rosalia" | translate}}
+      </p>
+      <p>
+        {{ "welcome" | translate }}
+      </p>
+    </div>
+  </div>
+    <button
+      class="accept-button"
+      (click)="openWelcomeModal($event)"
+    >
+      FALA CON ELA
+    </button>
+</div>
+<div #chatContainer *ngIf="isLegalAccepted" class="chat-container">
+  <div #messageList class="message-list">
+    <div
+      *ngFor="let message of messages"
+      class="message"
+      [ngClass]="{
+        'message-outgoing': message.outgoing,
+        'message-incoming': !message.outgoing
+      }"
+    >
+      <div class="message-content">
+        <div class="message-avatar">
+          <img
+            *ngIf="!message.outgoing"
+            src="../../../assets/images/rosalia-avatar.svg"
+            alt="Avatar"
+          />
+          <img
+            *ngIf="message.outgoing"
+            src="../../../assets/images/user-avatar.svg"
+            alt="Avatar"
+          />
+          <div class="message-sender" *ngIf="!message.outgoing">ROSAL.IA</div>
+          <div class="message-sender" *ngIf="message.outgoing">TÚ</div>
+        </div>
+        <div class="message-text" [innerHTML]="message.content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="input-container">
+    <input
+      type="text"
+      [(ngModel)]="newMessage"
+      (keydown.enter)="sendMessage()"
+      (input)="onUserWriting()"
+    />
+    <button class="chat-button" (click)="sendMessage()">
+      <img src="../../../assets/images/Send-one.svg" alt="Enviar" />
+    </button>
+  </div>
+</div>
+<div class="overlay" *ngIf="showWelcomeModal">
+  <div class="modal welcome-modal">
+    <a href="#" class="close-button" (click)="closeWelcomeModal()">&times;</a>
+    <div class="modal-content">
+      <ng-container>
+        <p>
+        {{ "legal_1" | translate }}
+        <a href="#" (click)="openModal('option1', $event)">{{
+          "legalLink_1" | translate
+        }}</a
+        >.
+        <br />
+        <br />
+        {{ "legal_2" | translate }}
+        <a href="#" (click)="openModal('option2', $event)">{{
+          "legalLink_2" | translate
+        }}</a
+        >.
+      </p>
+      <button class="accept-button modal-button" (click)="acceptLegal()">{{ "accept" | translate }}</button>
+      </ng-container>
+      <ng-container *ngIf="selectedOption === 'option1' && getLang() === 'gl'">
+       <h1>TERMOS E CONDICI&Oacute;NS</h1>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >O mero uso do Chatbot Rosal.IA (Rosal.IA) atrib&uacute;e a
+            condici&oacute;n de Usuario deste e implica a aceptaci&oacute;n
+            expresa, sen reservas e na s&uacute;a totalidade, dos presentes
+            Termos e Condici&oacute;ns de Uso.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >No caso de que non esteas de acordo cos Termos e Condici&oacute;ns
+            de Uso deber&aacute;s absterte de utilizar Rosal.IA. Por iso NTT
+            Data Spain S.L.U., (NTT Data Spain) recomenda encarecidamente
+            &aacute;s persoas Usuarias ler detidamente os Termos e
+            Condici&oacute;ns completos do servizo de Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Obrigas das persoas Usuarias&nbsp;</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Ao utilizar Rosal.IA, aceptas o seguinte:</span
+          >
+        </p>
+        <ul style="list-style-type: disc">
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non tentar crear nin compartir contido que poida usarse para
+              acosar, maltratar, abusar, ameazar nin intimidar a outras persoas,
+              nin provocar danos dalg&uacute;n modo a persoas, empresas,
+              entidades p&uacute;blicas ou &aacute; sociedade en xeral.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non participar en actividades que infrinxan a privacidade doutras
+              persoas. Non intentes crear ni compartir contido que poida
+              infrinxir a privacidade doutras persoas, inclu&iacute;da a
+              divulgaci&oacute;n de informaci&oacute;n privada. Especialmente,
+              est&aacute; prohibida a incorporaci&oacute;n de datos persoais de
+              menores de idade.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non participar en actividades que sexan fraudulentas, falsas ou
+              enganosas. No tentes crear nin compartir contido que poida enganar
+              a outras persoas ou inducilas a erro, inclu&iacute;das, entre
+              outras cousas, a creaci&oacute;n de desinformaci&oacute;n, de
+              contido que permita cometer fraudes o a suplantaci&oacute;n
+              enganosa.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non infrinxir os dereitos doutras persoas. Non tentes usar os
+              Servizos en li&ntilde;a para infrinxir os dereitos doutra xente,
+              inclu&iacute;dos os dereitos de propiedade intelectual e
+              industrial.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non usar os servizos para crear ou compartir contido ou material
+              desapropiados, como contido para persoas adultas, violento, de
+              odio, terrorismo, explotaci&oacute;n sexual infantil ou material
+              de abuso, nin contido que sexa dalg&uacute;n modo perturbador ou
+              ofensivo.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non facer nada ilegal. O uso de Rosal.IA debe cumprir con toda a
+              lexislaci&oacute;n aplicable.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non utilizar m&eacute;todos automatizados ou program&aacute;ticos
+              para extraer datos ou resultados de Rosal.IA, inclu&iacute;dos o
+              web scraping ou outras t&eacute;cnicas de extracci&oacute;n de
+              datos web.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non utilizar os servizos de Rosal.IA para descubrir ning&uacute;n
+              compo&ntilde;ente subxacente dos modelos, algoritmos e
+              sistemas.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non utilizar Rosal.IA, nin os datos que lanza, para crear,
+              adestrar ou mellorar (directa ou indirectamente) calquera outro
+              servizo de IA.</span
+            >
+          </li>
+        </ul>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 36pt;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Contidos&nbsp;</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Ao interactuar con Rosal.IA, as persoas usuarias facilitar&aacute;n
+            informaci&oacute;n (&quot;Entrada&quot;) e recibir&aacute;n a
+            contestaci&oacute;n de Rosal.IA (&quot;Sa&iacute;da&quot;). A
+            Entrada e a Sa&iacute;da son, colectivamente, &quot;Contido&quot;.
+            Ti es responsable de que a Entrada non infrinxa ningunha lei
+            aplicable ou estes Termos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Como usuario, es titular de todos os dereitos tanto da Entrada como
+            da Sa&iacute;da. Sen prexu&iacute;zo disto, autorizas expresamente a
+            NTT Data Spain a utilizar as Sa&iacute;das xeradas (que non
+            conte&ntilde;an informaci&oacute;n persoal) con fins promocionais e,
+            en particular, para poder comunicar e difundir a campa&ntilde;a
+            realizada a trav&eacute;s de medios dixitais.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Debido &aacute; natureza de Rosal.IA, a Sa&iacute;da pode non ser
+            &uacute;nica por cada usuario, polo que outras persoas
+            poder&aacute;n recibir Sa&iacute;das similares &aacute; que poidas
+            obter ti.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >En ning&uacute;n caso utilizaremos as Entradas que proporciones a
+            Rosal.IA coa finalidade de desenvolver, adestrar o algoritmo ou
+            mellorar o Servizo.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Rosal.IA foi ben adestrada pero, a&iacute;nda as&iacute;, non
+            podemos garantir que as s&uacute;as respostas sexan precisas,
+            fiables ou seguras. Nalg&uacute;ns casos, as respostas poden ser
+            incorrectas e inducir a erro sobre persoas, lugares ou feitos reais.
+            Non considere ningunha resposta como v&aacute;lida per se, e
+            anal&iacute;cea sempre con sentido cr&iacute;tico.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Confidencialidade</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Como usuario debes asegurarte de non incorporar Informaci&oacute;n
+            Confidencial en Rosal.IA, pois estar&iacute;as divulg&aacute;ndoa a
+            terceiros. Ten en conta que Rosal.IA &eacute; unha soluci&oacute;n
+            de NTT Data soportada, ademais, con software de empresas/entidades
+            provedoras.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Informaci&oacute;n confidencial &eacute; toda aquela
+            informaci&oacute;n que non &eacute; p&uacute;blica ou que
+            razoablemente debe considerarse confidencial baixo as
+            circunstancias, inclu&iacute;do o software, as
+            especificaci&oacute;ns e outra informaci&oacute;n comercial non
+            p&uacute;blica. A Informaci&oacute;n confidencial non incl&uacute;e
+            informaci&oacute;n que: (i) estea ou chegue a estar xeralmente
+            dispo&ntilde;ible para o p&uacute;blico sen culpa t&uacute;a; (ii)
+            xa a pos&uacute;e sen ningunha obriga de confidencialidade cando a
+            recibiu baixo estes Termos; (iii) te sexa revelada lexitimamente por
+            un terceiro sen ningunha obriga de confidencialidade; ou (iv)
+            desenvolviches de forma independente sen usar Informaci&oacute;n
+            confidencial.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Propiedade Intelectual e Industrial dos Materiais de
+              Rosal.IA</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >A totalidade dos compo&ntilde;entes da aplicaci&oacute;n de
+            Rosal.IA, entendendo por compo&ntilde;entes, a t&iacute;tulo
+            meramente enunciativo, textos, imaxes, ficheiros,
+            fotograf&iacute;as, logotipos, gr&aacute;ficos, marcas, iconas,
+            combinaci&oacute;ns de cores ou calquera outro elemento, a
+            s&uacute;a estrutura e dese&ntilde;o, a selecci&oacute;n e forma de
+            presentaci&oacute;n destes, e o software, ligaz&oacute;ns e demais
+            contidos audiovisuais ou sonoros, as&iacute; como o seu
+            dese&ntilde;o gr&aacute;fico e os c&oacute;digos fontes necesarios
+            para o seu funcionamento, acceso e utilizaci&oacute;n, (os
+            Materiais) est&aacute;n protexidos por dereitos de propiedade
+            industrial e intelectual, titularidade de NTT DATA Spain ou de
+            terceiros, sen que poidan entenderse cedidos os dereitos de
+            explotaci&oacute;n sobre estes m&aacute;s al&oacute; do estritamente
+            necesario para o correcto uso de Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >En particular, quedan prohibidas a reproduci&oacute;n,
+            transformaci&oacute;n, distribuci&oacute;n, comunicaci&oacute;n
+            p&uacute;blica, posta ao dispor do p&uacute;blico e, en xeral,
+            calquera outra forma de explotaci&oacute;n, por calquera
+            procedemento, de todo ou parte dos Materiais de Rosal.IA, as&iacute;
+            como do seu dese&ntilde;o e da selecci&oacute;n e forma de
+            presentaci&oacute;n dos Materiais inclu&iacute;dos nesta. Estes
+            actos de explotaci&oacute;n s&oacute; poder&aacute;n realizarse se
+            media a autorizaci&oacute;n expresa de NTT DATA Spain e sempre que
+            se faga referencia &aacute; titularidade de NTT DATA Spain dos
+            indicados dereitos de propiedade intelectual e industrial.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >As&iacute; mesmo, queda prohibido descompilar, desensamblar,
+            realizar enxe&ntilde;er&iacute;a inversa, sublicenciar, transmitir
+            de calquera modo, traducir ou realizar obras derivadas dos programas
+            de ordenador necesarios para o funcionamento, acceso e
+            utilizaci&oacute;n de Rosal.IA e dos servizos nel contidos,
+            as&iacute; como realizar, respecto a todo ou parte de tales
+            programas, calquera dos actos de explotaci&oacute;n descritos no
+            par&aacute;grafo anterior. Como Usuario de Rosal.IA web
+            deber&aacute;s absterte en todo caso de suprimir, alterar, eludir ou
+            manipular calquera dispositivo de protecci&oacute;n ou sistemas de
+            seguridade que poidan estar instalados nesta.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >As marcas, nomes comerciais ou signos distintivos son titularidade
+            de NTT DATA Spain ou de terceiros, sen que poida entenderse que o
+            acceso a Rosal.IA atrib&uacute;a ning&uacute;n dereito sobre as
+            citadas marcas, nomes comerciais e/ou signos distintivos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Exclusi&oacute;n de responsabilidade</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >O uso de Rosal.IA real&iacute;zase por propia conta e risco da
+            persoa usuaria. NTT DATA Spain, os seus socios, colaboradores,
+            persoal empregado e representantes non se responsabilizan dos erros
+            ou omisi&oacute;ns de Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >NTT DATA Spain, os seus socios, colaboradores, persoal empregado e
+            representantes tampouco poder&aacute;n considerarse responsables por
+            calquera dano derivado da utilizaci&oacute;n de Rosal.IA, nin por
+            calquera actuaci&oacute;n realizada sobre a base da
+            informaci&oacute;n que Rosal.IA poida facilitar.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >A informaci&oacute;n de Rosal.IA proporci&oacute;nase sen
+            garant&iacute;a de ningunha clase, nin expl&iacute;cita nin
+            impl&iacute;cita. NTT DATA Spain non garante a
+            dispo&ntilde;ibilidade e continuidade no acceso a Rosal.IA nin que o
+            seu funcionamento estea libre de erros. As&iacute; mesmo,
+            corresp&oacute;ndeche como Usuario de Rosal.IA, en calquera caso, a
+            obriga de dispo&ntilde;er de ferramentas adecuadas para a
+            detecci&oacute;n e desinfecci&oacute;n de programas
+            inform&aacute;ticos dani&ntilde;os ou lesivos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >As respostas de Rosal.IA non representan as opini&oacute;n,
+            recomendaci&oacute;ns ou manifestaci&oacute;ns de NTT Data Spain e
+            NTT Data Spain non se fai responsable das devanditas
+            respostas.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Como Usuario, responder&aacute;s dos danos e prexu&iacute;zos de
+            toda natureza que NTT DATA Spain poida sufrir como consecuencia do
+            incumprimento de calquera das obrigas &aacute;s que quedas sometido
+            polos presentes Termos e Condici&oacute;ns. Como Usuario es
+            consciente e aceptas voluntariamente que o uso de calquera dos
+            Contidos e Materiais de Rosal.IA ten lugar, en todo caso, baixo a
+            t&uacute;a &uacute;nica e exclusiva responsabilidade.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Reserva de dereitos</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >NTT DATA Spain poder&aacute; libremente interromper, suspender ou
+            limitar o acceso a Rosal.IA sen necesidade de emitir
+            comunicaci&oacute;n algunha e sen que por iso as persoas usuarias
+            poidan esixir calquera tipo de responsabilidade.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Lexislaci&oacute;n</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Os presentes Termos e Condici&oacute;ns r&eacute;xense en todos e
+            cada un dos seus extremos pola lexislaci&oacute;n
+            espa&ntilde;ola.</span
+          >
+        </p>
+      </ng-container>
+      <ng-container *ngIf="selectedOption === 'option2' && getLang() != 'gl'">
+        <h1>POL&Iacute;TICA DE PRIVACIDAD</h1>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 0pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Esta pol&iacute;tica te informa sobre los tratamientos de datos que
+            se realizan, a trav&eacute;s de la aplicaci&oacute;n web
+            de&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">&nbsp;(en adelante, &ldquo;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">&rdquo;).</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 0pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <ol type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Qui&eacute;nes es el Responsable del Tratamiento de tus
+            datos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong><span style="font-family: Roboto-flex">Identidad:</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;NTT DATA Spain, S.L.U. (en adelante, &ldquo;NTT DATA
+            Spain&rdquo;).</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex"
+              >Direcci&oacute;n Postal:&nbsp;</span
+            ></strong
+          ><span style="font-family: Roboto-flex"
+            >Camino Fuente de la Mora 1, 28050, Madrid, Espa&ntilde;a.</span
+          >
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 8pt; text-align: justify">
+          <strong
+            ><span
+              style="line-height: 108%; font-family: Roboto-flex; font-size: 10pt"
+              >Direcci&oacute;n de correo electr&oacute;nico y contacto con el
+              Delegado de Protecci&oacute;n de Datos:</span
+            ></strong
+          ><strong
+            ><span
+              style="line-height: 108%; font-family: Roboto-flex; font-size: 10pt"
+              >&nbsp;&nbsp;</span
+            ></strong
+          ><a
+            href="mailto:data.protection.office@nttdata.com"
+            style="text-decoration: none"
+            ><u
+              ><span
+                style="
+                  line-height: 108%;
+                  font-family: Roboto-flex;
+                  font-size: 10pt;
+                  color: #0563c1;
+                "
+                >data.protection.office@nttdata.com</span
+              ></u
+            ></a
+          ><span style="line-height: 108%; font-family: Roboto-flex; font-size: 10pt"
+            >&nbsp;</span
+          >
+        </p>
+        <ol start="2" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            <a name="_Toc45026898"></a
+            ><a name="_Toc45793008">&iquest;Qu&eacute; datos tratamos?</a>
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 14pt;
+            margin-bottom: 14pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;no est&aacute; dise&ntilde;ada para el tratamiento de datos
+            personales, sin embargo, en el caso de que durante tu
+            interacci&oacute;n con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;nos facilites alg&uacute;n dato personal, los datos
+            personales que tratemos proceder&aacute;n de la informaci&oacute;n
+            que nos facilites al interactuar con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">.</span>
+        </p>
+        <ol start="3" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Con qu&eacute; finalidades y bajo qu&eacute; bases legales
+            tratamos tus datos personales?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >NTT DATA Spain tratar&aacute; tus datos personales con la finalidad
+            de procesar tu interacci&oacute;n con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;y que &eacute;sta pueda responderte, siempre que t&uacute;
+            voluntariamente hayas incorporado datos personales en
+            Rosal.ia.&nbsp;</span
+          ><u
+            ><span style="font-family: Roboto-flex"
+              >Te recordamos que para interactuar con&nbsp;</span
+            ></u
+          ><strong
+            ><u
+              ><span style="font-family: Roboto-flex">Rosal.ia&nbsp;</span></u
+            ></strong
+          ><u
+            ><span style="font-family: Roboto-flex"
+              >no es necesario que incorpores datos personales y que, si lo
+              haces, es una acci&oacute;n libre y voluntaria.&nbsp;</span
+            ></u
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >La base legitimadora de este tratamiento es el consentimiento del
+            usuario sustentado en la acci&oacute;n afirmativa de incorporar
+            datos personales en&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">.</span>
+        </p>
+        <ol start="4" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Por cu&aacute;nto tiempo conservaremos tus datos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 14pt;
+            margin-bottom: 14pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Tus datos se conservar&aacute;n durante el plazo necesario para la
+            finalidad para la que se recabaron, y concretamente, hasta que
+            finalice tu interacci&oacute;n con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">.&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 14pt;
+            margin-bottom: 14pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;no almacena tus datos personales posteriormente.</span
+          >
+        </p>
+        <ol start="5" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;A qu&eacute; destinatarios se comunicar&aacute;n tus datos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Te informamos que tus datos podr&iacute;an ser comunicados a
+            Encargados del Tratamiento necesarios para el funcionamiento
+            de&nbsp;</span
+          ><strong
+            ><span style="font-family: Roboto-flex">Rosal.ia&nbsp;</span></strong
+          ><span style="font-family: Roboto-flex"
+            >(tales como, Microsoft Azure y OpenAI), algunos de los cuales
+            disponen de centros de proceso y/o soporte ubicados fuera Espacio
+            Econ&oacute;mico Europeo.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Te garantizamos que cuando tus datos pudieran salir del Espacio
+            Econ&oacute;mico Europeo, mantendr&aacute;n el mismo nivel de
+            protecci&oacute;n en base al cumplimiento de las disposiciones
+            previstas en la normativa europea de protecci&oacute;n de datos.
+            Para recibir m&aacute;s informaci&oacute;n sobre las transferencias
+            internacionales de datos de las empresas del Grupo NTT DATA u
+            obtener confirmaci&oacute;n o copia de las garant&iacute;as
+            empleadas, puedes ponerte en contacto con el Delegado de
+            Protecci&oacute;n de Datos de NTT DATA Spain.</span
+          >
+        </p>
+        <ol start="6" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;C&oacute;mo se protegen tus datos personales?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Nos comprometemos a mantener seguros los datos personales,
+            adoptando todas las precauciones razonables para hacerlo.
+            Implementamos todas las medidas organizativas y t&eacute;cnicas
+            necesarias de acuerdo con la normativa vigente contra cualquier
+            acceso no autorizado y modificaci&oacute;n, divulgaci&oacute;n,
+            p&eacute;rdida o destrucci&oacute;n. Exigimos e imponemos
+            contractualmente a los proveedores</span
+          ><span style="font-family: Roboto-flex; letter-spacing: -0.05pt"
+            >&nbsp;de servicios que manejan tus datos personales que hagan lo
+            mismo.</span
+          >
+        </p>
+        <ol start="7" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Cu&aacute;les son tus derechos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Puedes solicitar a NTT DATA Spain confirmaci&oacute;n sobre si tus
+            datos personales est&aacute;n siendo tratados y, en caso afirmativo,
+            acceder a los mismos. Tambi&eacute;n, puedes solicitar la
+            rectificaci&oacute;n de los datos inexactos o, en su caso, solicitar
+            su supresi&oacute;n cuando, entre otros motivos, los datos ya no
+            sean necesarios para los fines para los que se recogieron.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >En determinadas circunstancias, es posible solicitar la
+            limitaci&oacute;n del tratamiento de tus datos, en cuyo caso
+            &uacute;nicamente los conservaremos para el ejercicio de acciones o
+            la defensa de reclamaciones. Por &uacute;ltimo, cuando sea
+            procedente, se podr&aacute; ejercitar el derecho de portabilidad
+            para obtener los datos en formato electr&oacute;nico o que se
+            transmitan los mismos a otra entidad.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+          "
+        >
+          <span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >Para ejercitar los citados derechos, puedes escribir al Delegado de
+            Protecci&oacute;n de Datos, acreditando tu identidad, a la siguiente
+            direcci&oacute;n de correo electr&oacute;nico:&nbsp;</span
+          ><a
+            href="mailto:data.protection.office@nttdata.com"
+            style="text-decoration: none"
+            ><u
+              ><span
+                style="
+                  line-height: 115%;
+                  font-family: Roboto-flex;
+                  font-size: 10pt;
+                  color: #0563c1;
+                "
+                >data.protection.office@nttdata.com</span
+              ></u
+            ></a
+          ><span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >. Para ayudarnos a tramitar tu solicitud, te rogamos que indiques
+            en el asunto &ldquo;Ejercicio de Derechos&nbsp;</span
+          ><strong
+            ><span
+              style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+              >Rosal.ia</span
+            ></strong
+          ><span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >&rdquo;.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+          "
+        >
+          <span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >Tienes derecho a presentar una reclamaci&oacute;n ante la autoridad
+            competente en materia de protecci&oacute;n de datos (en
+            Espa&ntilde;a,&nbsp;</span
+          ><a href="http://www.aepd.es" style="text-decoration: none"
+            ><u
+              ><span
+                style="
+                  line-height: 115%;
+                  font-family: Roboto-flex;
+                  font-size: 10pt;
+                  color: #0563c1;
+                "
+                >www.aepd.es</span
+              ></u
+            ></a
+          ><span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >) en caso de que tengas conocimiento o consideres que un hecho
+            pueda suponer un incumplimiento de la normativa aplicable en materia
+            de protecci&oacute;n de datos.</span
+          >
+        </p>
+      </ng-container>
+      <ng-container *ngIf="selectedOption === 'option2' && getLang() === 'gl'">
+        <h1>POL&Iacute;TICA DE PRIVACIDADE</h1>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 0cm;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Esta pol&iacute;tica inf&oacute;rmache sobre os tratamentos de
+            datos que se realizan a trav&eacute;s da aplicaci&oacute;n web de
+            <strong>Rosal.ia</strong> (en diante,
+            &ldquo;<strong>Rosal.ia</strong>&rdquo;).</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 0cm;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: decimal;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Quen &eacute; Responsable do Tratamento dos teus datos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Identidade:</span
+            ></strong
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;NTT DATA Spain, S.L.U. (en diante, &ldquo;NTT DATA
+            Spain&rdquo;).</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Direcci&oacute;n Postal:&nbsp;</span
+            ></strong
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Cami&ntilde;o Fuente de la Mora 1, 28050, Madrid,
+            Espa&ntilde;a.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Direcci&oacute;n de correo electr&oacute;nico e contacto co
+              Delegado de Protecci&oacute;n de Datos: &nbsp;&nbsp;</span
+            ></strong
+          ><a href="mailto:data.protection.office@nttdata.com"
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >data.protection.office@nttdata.com</span
+            ></a
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Que datos tratamos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 13px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+            color: #595959;
+            line-height: 115%;
+          "
+        >
+          <strong
+            ><span
+              style="
+                line-height: 115%;
+                font-family: 'Roboto-flex', sans-serif;
+                color: white;
+              "
+              >Rosal.ia</span
+            ></strong
+          ><span
+            style="
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+              color: white;
+            "
+            >&nbsp;non est&aacute; dese&ntilde;ada para o tratamento de datos
+            persoais. Con todo, no caso de que durante a t&uacute;a
+            interacci&oacute;n con <strong>Rosal.ia</strong> nos facilites
+            alg&uacute;n dato persoal, os datos persoais que tratemos
+            proceder&aacute;n da informaci&oacute;n que nos facilites ao
+            interactuar con <strong>Rosal.ia</strong>.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Con que finalidades e baixo que bases legais tratamos os teus
+                  datos persoais?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >NTT DATA Spain tratar&aacute; os teus datos persoais coa finalidade
+            de procesar a t&uacute;a interacci&oacute;n con
+            <strong>Rosal.ia</strong> e que esta poida responderche, sempre que
+            ti voluntariamente incorpores datos persoais en Rosal.ia.
+            Lembr&aacute;mosche<u
+              >&nbsp;que, para interactuar con
+              <strong>Rosal.ia,&nbsp;</strong>non &eacute; necesario que
+              facilites datos persoais e que, se o fas, &eacute; unha
+              acci&oacute;n libre e voluntaria.&nbsp;</u
+            ></span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >A base lexitimadora deste tratamento &eacute; o consentimento da
+            persoa usuaria sustentado na acci&oacute;n afirmativa de incorporar
+            datos persoais en <strong>Rosal.ia</strong>.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Por canto tempo conservaremos os teus datos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Os teus datos conservaranse durante o prazo necesario para a
+            finalidade para a que se recolleron e, concretamente, ata que
+            finalice a t&uacute;a interacci&oacute;n con
+            <strong>Rosal.ia</strong>.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 115%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Rosal.ia</span
+            ></strong
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;non almacena os teus datos persoais posteriormente.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >A quen se lle comunicar&aacute;n os teus datos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Inform&aacute;mosche que os teus datos poder&iacute;an ser
+            comunicados a empresas Encargadas do Tratamento necesarias para o
+            funcionamento de <strong>Rosal.ia&nbsp;</strong>(tales como
+            Microsoft Azure e OpenAI), algunhas das cales dispo&ntilde;en de
+            centros de proceso e/ou soporte situados f&oacute;ra do Espazo
+            Econ&oacute;mico Europeo.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Garant&iacute;mosche que, no caso de que os teus datos saian do
+            Espazo Econ&oacute;mico Europeo, manter&aacute;n o mesmo nivel de
+            protecci&oacute;n, en base ao cumprimento das disposici&oacute;ns
+            previstas na normativa europea de protecci&oacute;n de datos. Para
+            recibir m&aacute;is informaci&oacute;n sobre as transferencias
+            internacionais de datos das empresas do Grupo NTT DATA ou obter
+            confirmaci&oacute;n ou copia das garant&iacute;as empregadas, podes
+            po&ntilde;erte en contacto co Delegado de Protecci&oacute;n de Datos
+            de NTT DATA Spain.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Como se protexen os teus datos persoais?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Compromet&eacute;monos a manter seguros os teus datos persoais
+            adoptando todas as precauci&oacute;ns razoables para facelo.
+            Implementamos todas as medidas organizativas e t&eacute;cnicas
+            necesarias de acordo coa normativa vixente contra calquera acceso
+            non autorizado e contra a modificaci&oacute;n, divulgaci&oacute;n,
+            perda ou destruci&oacute;n. Esiximos e impo&ntilde;emos
+            contractualmente aos proveedores</span
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;de servizos que manexan os teus datos persoais que fagan o
+            mesmo.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Cales son os teus dereitos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Podes solicitar a NTT DATA Spain confirmaci&oacute;n sobre se os
+            teus datos persoais est&aacute;n sendo tratados e, en caso
+            afirmativo, acceder a estes. Tam&eacute;n podes solicitar a
+            rectificaci&oacute;n dos datos inexactos ou solicitar a s&uacute;a
+            supresi&oacute;n cando, entre outros motivos, os datos xa non sexan
+            necesarios para os fins para os que se recolleron.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >En determinadas circunstancias, &eacute; posible solicitar a
+            limitaci&oacute;n do tratamento dos teus datos. Nese caso,
+            unicamente os conservaremos para o exercicio de acci&oacute;ns ou a
+            defensa de reclamaci&oacute;ns. Por &uacute;ltimo, cando sexa
+            procedente, podes exercitar o dereito de portabilidade para obter os
+            datos en formato electr&oacute;nico ou que se transmitan a outra
+            entidade.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Para exercitar os citados dereitos, podes escribir ao Delegado de
+            Protecci&oacute;n de Datos, acreditando a t&uacute;a identidade,
+            &aacute; seguinte direcci&oacute;n de correo
+            electr&oacute;nico:&nbsp;</span
+          ><a href="mailto:data.protection.office@nttdata.com"
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 115%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >data.protection.office@nttdata.com</span
+            ></a
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >. Para axudarnos a tramitar a t&uacute;a solicitude,
+            rog&aacute;mosche que indiques no asunto &ldquo;Exercicio de
+            Dereitos <strong>Rosal.ia</strong>&rdquo;.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Tes dereito a presentar unha reclamaci&oacute;n ante a autoridade
+            competente en materia de protecci&oacute;n de datos (en
+            Espa&ntilde;a, www.aepd.es) se tes co&ntilde;ecemento ou consideras
+            que un feito pode supo&ntilde;er un incumprimento da normativa
+            aplicable</span
+          >
+        </p>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="overlay" *ngIf="showModal">
+  <div class="modal">
+    <a href="#" class="close-button" (click)="closeWelcomeModal()">&times;</a>
+    <div class="modal-content">
+      <ng-container *ngIf="selectedOption === 'option1' && getLang() != 'gl'">
+        <h1>TÉRMINOS Y CONDICIONES</h1>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >El mero uso del Chatbot Rosal.IA (Rosal.IA) atribuye la
+            condici&oacute;n de Usuario de este e implica la aceptaci&oacute;n
+            expresa, sin reservas, y en su totalidad de los presentes
+            T&eacute;rminos y Condiciones de Uso.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >En el caso de que no est&eacute; en de acuerdo con los
+            T&eacute;rminos y Condiciones de Uso deber&aacute;n abstenerse de
+            utilizar Rosal.IA. Por ello NTT Data Spain S.L.U., (NTT Data Spain)
+            recomienda encarecidamente a los Usuarios leer detenidamente los
+            T&eacute;rminos y Condiciones completos del servicio de
+            Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex"
+              >Obligaciones del Usuario&nbsp;</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Al utilizar Rosal.IA, usted acepta lo siguiente:</span
+          >
+        </p>
+        <ul type="disc" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No intentar crear ni compartir contenido que pueda usarse para
+              acosar, maltratar, abusar, amenazar ni intimidar a otras personas,
+              ni provocar da&ntilde;os de alg&uacute;n modo a personas,
+              empresas, entidades p&uacute;blicas o a la sociedad en
+              general.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No participar en actividades que infrinjan la privacidad de los
+              dem&aacute;s. No intente crear ni compartir contenido que pueda
+              infringir la privacidad de otras personas, incluida la
+              divulgaci&oacute;n de informaci&oacute;n privada. Especialmente
+              est&aacute; prohibida la incorporaci&oacute;n de datos personales
+              de menores de edad.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No participar en actividades que sean fraudulentas, falsas o
+              enga&ntilde;osas. No intente crear ni compartir contenido que
+              pueda enga&ntilde;ar a otras personas o inducirlas a error,
+              incluida, entre otras cosas, la creaci&oacute;n de
+              desinformaci&oacute;n, contenido que permita cometer fraudes o la
+              suplantaci&oacute;n enga&ntilde;osa.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No infringir los derechos de los dem&aacute;s. No intente usar
+              los Servicios en l&iacute;nea para infringir los derechos de otras
+              personas, incluidos los derechos de propiedad intelectual e
+              industrial.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No usar los servicios para crear o compartir contenido o material
+              inapropiados como contenido para adultos, violentos, contenido de
+              odio, terrorismo, explotaci&oacute;n sexual infantil o material de
+              abuso, ni contenido que sea de alg&uacute;n modo perturbador u
+              ofensivo.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No hacer nada ilegal. El uso de Rosal.IA debe cumplir con toda la
+              legislaci&oacute;n aplicable.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No utilizar m&eacute;todos automatizados o program&aacute;ticos
+              para extraer datos o resultados de Rosal.IA, incluidos el web
+              scraping, u otras t&eacute;cnicas de extracci&oacute;n de datos
+              web.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No utilizar los servicios de Rosal.IA para descubrir
+              ning&uacute;n componente subyacente de los modelos, algoritmos y
+              sistemas.</span
+            >
+          </li>
+          <li
+            style="
+              margin-left: 27.6pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 8.4pt;
+              font-family: serif;
+              font-size: 10pt;
+            "
+          >
+            <span style="font-family: Roboto-flex"
+              >No podr&aacute; utilizar Rosal.IA, ni los datos que arroja, para
+              crear, entrenar o mejorar (directa o indirectamente) cualquier
+              otro servicio de IA.</span
+            >
+          </li>
+        </ul>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-left: 36pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex">Contenidos&nbsp;</span></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Los usuarios al interactuar con Rosal.IA facilitar&aacute;n
+            informaci&oacute;n (&quot;Entrada&quot;) y recibir&aacute;n la
+            contestaci&oacute;n de Rosal.IA (&quot;Salida&quot;). La Entrada y
+            la Salida son colectivamente &quot;Contenido&quot;. Usted es
+            responsable de que la Entrada no infrinja ninguna ley aplicable o
+            estos T&eacute;rminos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Como usuario usted es titular de todos los derechos tanto de la
+            Entrada como de la Salida. Sin perjuicio de ello, usted autoriza
+            expresamente a NTT Data Spain a utilizar las Salidas generadas (que
+            no contengan informaci&oacute;n personal) con fines promocionales y
+            en particular para poder comunicar y difundir la campa&ntilde;a
+            realizada a trav&eacute;s de medios digitales.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Debido a la naturaleza de Rosal.IA, la Salida puede no ser
+            &uacute;nica por cada usuario por lo que otros usuarios
+            podr&aacute;n recibir Salidas similares a la que haya podido obtener
+            usted.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >En ning&uacute;n caso utilizaremos las Entradas que usted
+            proporciona a Rosal.IA con la finalidad de desarrollar, entrenar el
+            algoritmo o mejorar del Servicio.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Rosal.IA ha sido bien entrenada pero aun as&iacute; no podemos
+            garantizar que sus respuestas sean precisas, confiables o seguras.
+            En algunos casos, las respuestas pueden ser incorrectas e inducir a
+            error sobre personas, lugares o hechos reales. No considere ninguna
+            respuesta como v&aacute;lida per se, y anal&iacute;cela siempre con
+            sentido cr&iacute;tico.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex">Confidencialidad</span></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >El usuario debe asegurarse de no incorporar Informaci&oacute;n
+            Confidencial en Rosal.IA, pues estar&iacute;a realizando una
+            divulgaci&oacute;n a terceros, tenga en cuenta que Rosal.IA es una
+            soluci&oacute;n de NTT Data soportada adem&aacute;s con software de
+            nuestros proveedores. Informaci&oacute;n confidencial es toda
+            aquella informaci&oacute;n no p&uacute;blica o que razonablemente
+            debe considerarse confidencial bajo las circunstancias, incluido el
+            software, las especificaciones y otra informaci&oacute;n comercial
+            no p&uacute;blica. La Informaci&oacute;n confidencial no incluye
+            informaci&oacute;n que: (i) est&eacute; o llegue a estar
+            generalmente disponible para el p&uacute;blico sin culpa suya; (ii)
+            ya posee sin ninguna obligaci&oacute;n de confidencialidad cuando lo
+            recibi&oacute; bajo estos T&eacute;rminos; (iii) sea revelada
+            leg&iacute;timamente a usted por un tercero sin ninguna
+            obligaci&oacute;n de confidencialidad; o (iv) usted
+            desarroll&oacute; de forma independiente sin usar Informaci&oacute;n
+            confidencial.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex"
+              >Propiedad Intelectual e Industrial de los Materiales de
+              Rosal.IA</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >La totalidad de los componentes de la aplicaci&oacute;n de Rosal.IA
+            entendiendo por componentes a t&iacute;tulo meramente enunciativo,
+            textos, im&aacute;genes, ficheros, fotograf&iacute;as, logotipos,
+            gr&aacute;ficos, marcas, iconos, combinaciones de colores, o
+            cualquier otro elemento, su estructura y dise&ntilde;o, la
+            selecci&oacute;n y forma de presentaci&oacute;n de los mismos, y el
+            software, links y dem&aacute;s contenidos audiovisuales o sonoros,
+            as&iacute; como su dise&ntilde;o gr&aacute;fico y c&oacute;digos
+            fuentes necesarios para su funcionamiento, acceso y
+            utilizaci&oacute;n, (los Materiales) est&aacute;n protegidos por
+            derechos de propiedad industrial e intelectual, titularidad de NTT
+            DATA Spain o de terceros, sin que puedan entenderse cedidos los
+            derechos de explotaci&oacute;n sobre los mismos m&aacute;s
+            all&aacute; de lo estrictamente necesario para el correcto uso de
+            Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >En particular, quedan prohibidas la reproducci&oacute;n, la
+            transformaci&oacute;n, distribuci&oacute;n, comunicaci&oacute;n
+            p&uacute;blica, puesta a disposici&oacute;n del p&uacute;blico y en
+            general cualquier otra forma de explotaci&oacute;n, por cualquier
+            procedimiento, de todo o parte de los Materiales de Rosal.IA,
+            as&iacute; como de su dise&ntilde;o y la selecci&oacute;n y forma de
+            presentaci&oacute;n de los Materiales incluidos en la misma. Estos
+            actos de explotaci&oacute;n s&oacute;lo podr&aacute;n ser realizados
+            si media la autorizaci&oacute;n expresa de NTT DATA Spain y siempre
+            que se haga referencia a la titularidad de NTT DATA Spain de los
+            indicados derechos de propiedad intelectual e industrial.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Queda asimismo prohibido descompilar, desensamblar, realizar
+            ingenier&iacute;a inversa, sublicenciar o transmitir de cualquier
+            modo, traducir o realizar obras derivadas de los programas de
+            ordenador necesarios para el funcionamiento, acceso y
+            utilizaci&oacute;n de Rosal.IA y de los servicios en &eacute;l
+            contenidos, as&iacute; como realizar, respecto a todo o parte de
+            tales programas, cualesquiera de los actos de explotaci&oacute;n
+            descritos en el p&aacute;rrafo anterior. Como Usuario de Rosal.IA
+            web deber&aacute;s abstenerte en todo caso de suprimir, alterar,
+            eludir o manipular cualquier dispositivo de protecci&oacute;n o
+            sistemas de seguridad que puedan estar instalados en el mismo.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Las marcas, nombres comerciales o signos distintivos son
+            titularidad de NTT DATA Spain o de terceros, sin que pueda
+            entenderse que el acceso a Rosal.IA atribuya ning&uacute;n derecho
+            sobre las citadas marcas, nombres comerciales y/o signos
+            distintivos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex"
+              >Exclusi&oacute;n de responsabilidad</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >El uso de Rosal.IA se realiza por propia cuenta y riesgo del
+            usuario. NTT DATA Spain, sus socios, colaboradores, empleados y
+            representantes no se responsabilizan de los errores u omisiones de
+            Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >NTT DATA Spain, sus socios, colaboradores, empleados y
+            representantes tampoco podr&aacute;n ser considerados responsables
+            por cualesquiera da&ntilde;os derivados de la utilizaci&oacute;n de
+            Rosal.IA, ni por cualquier actuaci&oacute;n realizada sobre la base
+            de la informaci&oacute;n que Rosal.IA pueda facilitar.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >La informaci&oacute;n de Rosal.IA se proporciona sin
+            garant&iacute;a de ninguna clase, ni expl&iacute;cita ni
+            impl&iacute;cita. NTT DATA Spain no garantiza la disponibilidad y
+            continuidad en el acceso a Rosal.IA o que su funcionamiento
+            est&eacute; libre de errores. Asimismo, correspondiente como Usuario
+            de Rosal.IA en cualquier caso, la obligaci&oacute;n de disponer de
+            herramientas adecuadas para la detecci&oacute;n y
+            desinfecci&oacute;n de programas inform&aacute;ticos da&ntilde;inos
+            o lesivos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Asimismo, las respuestas de Rosal.IA no representan las opiniones
+            recomendaciones o manifestaciones de NTT Data Spain y NTT Data Spain
+            no se hace responsable de dichas respuestas.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Como Usuario responder&aacute;s de los da&ntilde;os y perjuicios de
+            toda naturaleza que NTT DATA Spain pueda sufrir como consecuencia
+            del incumplimiento de cualquiera de las obligaciones a las que
+            quedas sometido por los presentes T&eacute;rminos y Condiciones Uso.
+            Como Usuario eres consciente y aceptas voluntariamente que el uso de
+            cualesquiera Contenidos y Materiales de Rosal.IA tiene lugar, en
+            todo caso, bajo tu &uacute;nica y exclusiva responsabilidad.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex"
+              >Reserva de derechos&nbsp;</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >NTT DATA Spain podr&aacute; libremente interrumpir, suspender o
+            limitar el acceso a Rosal.IA sin necesidad de emitir
+            comunicaci&oacute;n alguna y sin que por ello los usuarios puedan
+            exigir cualquier tipo de responsabilidad.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex">Legislaci&oacute;n</span></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Los presentes T&eacute;rminos y Condiciones se rigen en todos y
+            cada uno de sus extremos por la legislaci&oacute;n
+            espa&ntilde;ola.</span
+          >
+        </p>
+      </ng-container>
+      <ng-container *ngIf="selectedOption === 'option1' && getLang() === 'gl'">
+       <h1>TERMOS E CONDICI&Oacute;NS</h1>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >O mero uso do Chatbot Rosal.IA (Rosal.IA) atrib&uacute;e a
+            condici&oacute;n de Usuario deste e implica a aceptaci&oacute;n
+            expresa, sen reservas e na s&uacute;a totalidade, dos presentes
+            Termos e Condici&oacute;ns de Uso.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >No caso de que non esteas de acordo cos Termos e Condici&oacute;ns
+            de Uso deber&aacute;s absterte de utilizar Rosal.IA. Por iso NTT
+            Data Spain S.L.U., (NTT Data Spain) recomenda encarecidamente
+            &aacute;s persoas Usuarias ler detidamente os Termos e
+            Condici&oacute;ns completos do servizo de Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Obrigas das persoas Usuarias&nbsp;</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Ao utilizar Rosal.IA, aceptas o seguinte:</span
+          >
+        </p>
+        <ul style="list-style-type: disc">
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non tentar crear nin compartir contido que poida usarse para
+              acosar, maltratar, abusar, ameazar nin intimidar a outras persoas,
+              nin provocar danos dalg&uacute;n modo a persoas, empresas,
+              entidades p&uacute;blicas ou &aacute; sociedade en xeral.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non participar en actividades que infrinxan a privacidade doutras
+              persoas. Non intentes crear ni compartir contido que poida
+              infrinxir a privacidade doutras persoas, inclu&iacute;da a
+              divulgaci&oacute;n de informaci&oacute;n privada. Especialmente,
+              est&aacute; prohibida a incorporaci&oacute;n de datos persoais de
+              menores de idade.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non participar en actividades que sexan fraudulentas, falsas ou
+              enganosas. No tentes crear nin compartir contido que poida enganar
+              a outras persoas ou inducilas a erro, inclu&iacute;das, entre
+              outras cousas, a creaci&oacute;n de desinformaci&oacute;n, de
+              contido que permita cometer fraudes o a suplantaci&oacute;n
+              enganosa.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non infrinxir os dereitos doutras persoas. Non tentes usar os
+              Servizos en li&ntilde;a para infrinxir os dereitos doutra xente,
+              inclu&iacute;dos os dereitos de propiedade intelectual e
+              industrial.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non usar os servizos para crear ou compartir contido ou material
+              desapropiados, como contido para persoas adultas, violento, de
+              odio, terrorismo, explotaci&oacute;n sexual infantil ou material
+              de abuso, nin contido que sexa dalg&uacute;n modo perturbador ou
+              ofensivo.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non facer nada ilegal. O uso de Rosal.IA debe cumprir con toda a
+              lexislaci&oacute;n aplicable.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non utilizar m&eacute;todos automatizados ou program&aacute;ticos
+              para extraer datos ou resultados de Rosal.IA, inclu&iacute;dos o
+              web scraping ou outras t&eacute;cnicas de extracci&oacute;n de
+              datos web.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non utilizar os servizos de Rosal.IA para descubrir ning&uacute;n
+              compo&ntilde;ente subxacente dos modelos, algoritmos e
+              sistemas.</span
+            >
+          </li>
+          <li>
+            <span
+              style="
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+                font-size: 13px;
+              "
+              >Non utilizar Rosal.IA, nin os datos que lanza, para crear,
+              adestrar ou mellorar (directa ou indirectamente) calquera outro
+              servizo de IA.</span
+            >
+          </li>
+        </ul>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 36pt;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Contidos&nbsp;</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Ao interactuar con Rosal.IA, as persoas usuarias facilitar&aacute;n
+            informaci&oacute;n (&quot;Entrada&quot;) e recibir&aacute;n a
+            contestaci&oacute;n de Rosal.IA (&quot;Sa&iacute;da&quot;). A
+            Entrada e a Sa&iacute;da son, colectivamente, &quot;Contido&quot;.
+            Ti es responsable de que a Entrada non infrinxa ningunha lei
+            aplicable ou estes Termos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Como usuario, es titular de todos os dereitos tanto da Entrada como
+            da Sa&iacute;da. Sen prexu&iacute;zo disto, autorizas expresamente a
+            NTT Data Spain a utilizar as Sa&iacute;das xeradas (que non
+            conte&ntilde;an informaci&oacute;n persoal) con fins promocionais e,
+            en particular, para poder comunicar e difundir a campa&ntilde;a
+            realizada a trav&eacute;s de medios dixitais.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Debido &aacute; natureza de Rosal.IA, a Sa&iacute;da pode non ser
+            &uacute;nica por cada usuario, polo que outras persoas
+            poder&aacute;n recibir Sa&iacute;das similares &aacute; que poidas
+            obter ti.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >En ning&uacute;n caso utilizaremos as Entradas que proporciones a
+            Rosal.IA coa finalidade de desenvolver, adestrar o algoritmo ou
+            mellorar o Servizo.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Rosal.IA foi ben adestrada pero, a&iacute;nda as&iacute;, non
+            podemos garantir que as s&uacute;as respostas sexan precisas,
+            fiables ou seguras. Nalg&uacute;ns casos, as respostas poden ser
+            incorrectas e inducir a erro sobre persoas, lugares ou feitos reais.
+            Non considere ningunha resposta como v&aacute;lida per se, e
+            anal&iacute;cea sempre con sentido cr&iacute;tico.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Confidencialidade</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Como usuario debes asegurarte de non incorporar Informaci&oacute;n
+            Confidencial en Rosal.IA, pois estar&iacute;as divulg&aacute;ndoa a
+            terceiros. Ten en conta que Rosal.IA &eacute; unha soluci&oacute;n
+            de NTT Data soportada, ademais, con software de empresas/entidades
+            provedoras.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Informaci&oacute;n confidencial &eacute; toda aquela
+            informaci&oacute;n que non &eacute; p&uacute;blica ou que
+            razoablemente debe considerarse confidencial baixo as
+            circunstancias, inclu&iacute;do o software, as
+            especificaci&oacute;ns e outra informaci&oacute;n comercial non
+            p&uacute;blica. A Informaci&oacute;n confidencial non incl&uacute;e
+            informaci&oacute;n que: (i) estea ou chegue a estar xeralmente
+            dispo&ntilde;ible para o p&uacute;blico sen culpa t&uacute;a; (ii)
+            xa a pos&uacute;e sen ningunha obriga de confidencialidade cando a
+            recibiu baixo estes Termos; (iii) te sexa revelada lexitimamente por
+            un terceiro sen ningunha obriga de confidencialidade; ou (iv)
+            desenvolviches de forma independente sen usar Informaci&oacute;n
+            confidencial.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Propiedade Intelectual e Industrial dos Materiais de
+              Rosal.IA</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >A totalidade dos compo&ntilde;entes da aplicaci&oacute;n de
+            Rosal.IA, entendendo por compo&ntilde;entes, a t&iacute;tulo
+            meramente enunciativo, textos, imaxes, ficheiros,
+            fotograf&iacute;as, logotipos, gr&aacute;ficos, marcas, iconas,
+            combinaci&oacute;ns de cores ou calquera outro elemento, a
+            s&uacute;a estrutura e dese&ntilde;o, a selecci&oacute;n e forma de
+            presentaci&oacute;n destes, e o software, ligaz&oacute;ns e demais
+            contidos audiovisuais ou sonoros, as&iacute; como o seu
+            dese&ntilde;o gr&aacute;fico e os c&oacute;digos fontes necesarios
+            para o seu funcionamento, acceso e utilizaci&oacute;n, (os
+            Materiais) est&aacute;n protexidos por dereitos de propiedade
+            industrial e intelectual, titularidade de NTT DATA Spain ou de
+            terceiros, sen que poidan entenderse cedidos os dereitos de
+            explotaci&oacute;n sobre estes m&aacute;s al&oacute; do estritamente
+            necesario para o correcto uso de Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >En particular, quedan prohibidas a reproduci&oacute;n,
+            transformaci&oacute;n, distribuci&oacute;n, comunicaci&oacute;n
+            p&uacute;blica, posta ao dispor do p&uacute;blico e, en xeral,
+            calquera outra forma de explotaci&oacute;n, por calquera
+            procedemento, de todo ou parte dos Materiais de Rosal.IA, as&iacute;
+            como do seu dese&ntilde;o e da selecci&oacute;n e forma de
+            presentaci&oacute;n dos Materiais inclu&iacute;dos nesta. Estes
+            actos de explotaci&oacute;n s&oacute; poder&aacute;n realizarse se
+            media a autorizaci&oacute;n expresa de NTT DATA Spain e sempre que
+            se faga referencia &aacute; titularidade de NTT DATA Spain dos
+            indicados dereitos de propiedade intelectual e industrial.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >As&iacute; mesmo, queda prohibido descompilar, desensamblar,
+            realizar enxe&ntilde;er&iacute;a inversa, sublicenciar, transmitir
+            de calquera modo, traducir ou realizar obras derivadas dos programas
+            de ordenador necesarios para o funcionamento, acceso e
+            utilizaci&oacute;n de Rosal.IA e dos servizos nel contidos,
+            as&iacute; como realizar, respecto a todo ou parte de tales
+            programas, calquera dos actos de explotaci&oacute;n descritos no
+            par&aacute;grafo anterior. Como Usuario de Rosal.IA web
+            deber&aacute;s absterte en todo caso de suprimir, alterar, eludir ou
+            manipular calquera dispositivo de protecci&oacute;n ou sistemas de
+            seguridade que poidan estar instalados nesta.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >As marcas, nomes comerciais ou signos distintivos son titularidade
+            de NTT DATA Spain ou de terceiros, sen que poida entenderse que o
+            acceso a Rosal.IA atrib&uacute;a ning&uacute;n dereito sobre as
+            citadas marcas, nomes comerciais e/ou signos distintivos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Exclusi&oacute;n de responsabilidade</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >O uso de Rosal.IA real&iacute;zase por propia conta e risco da
+            persoa usuaria. NTT DATA Spain, os seus socios, colaboradores,
+            persoal empregado e representantes non se responsabilizan dos erros
+            ou omisi&oacute;ns de Rosal.IA.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >NTT DATA Spain, os seus socios, colaboradores, persoal empregado e
+            representantes tampouco poder&aacute;n considerarse responsables por
+            calquera dano derivado da utilizaci&oacute;n de Rosal.IA, nin por
+            calquera actuaci&oacute;n realizada sobre a base da
+            informaci&oacute;n que Rosal.IA poida facilitar.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >A informaci&oacute;n de Rosal.IA proporci&oacute;nase sen
+            garant&iacute;a de ningunha clase, nin expl&iacute;cita nin
+            impl&iacute;cita. NTT DATA Spain non garante a
+            dispo&ntilde;ibilidade e continuidade no acceso a Rosal.IA nin que o
+            seu funcionamento estea libre de erros. As&iacute; mesmo,
+            corresp&oacute;ndeche como Usuario de Rosal.IA, en calquera caso, a
+            obriga de dispo&ntilde;er de ferramentas adecuadas para a
+            detecci&oacute;n e desinfecci&oacute;n de programas
+            inform&aacute;ticos dani&ntilde;os ou lesivos.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >As respostas de Rosal.IA non representan as opini&oacute;n,
+            recomendaci&oacute;ns ou manifestaci&oacute;ns de NTT Data Spain e
+            NTT Data Spain non se fai responsable das devanditas
+            respostas.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Como Usuario, responder&aacute;s dos danos e prexu&iacute;zos de
+            toda natureza que NTT DATA Spain poida sufrir como consecuencia do
+            incumprimento de calquera das obrigas &aacute;s que quedas sometido
+            polos presentes Termos e Condici&oacute;ns. Como Usuario es
+            consciente e aceptas voluntariamente que o uso de calquera dos
+            Contidos e Materiais de Rosal.IA ten lugar, en todo caso, baixo a
+            t&uacute;a &uacute;nica e exclusiva responsabilidade.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Reserva de dereitos</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >NTT DATA Spain poder&aacute; libremente interromper, suspender ou
+            limitar o acceso a Rosal.IA sen necesidade de emitir
+            comunicaci&oacute;n algunha e sen que por iso as persoas usuarias
+            poidan esixir calquera tipo de responsabilidade.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Lexislaci&oacute;n</span
+            ></strong
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Os presentes Termos e Condici&oacute;ns r&eacute;xense en todos e
+            cada un dos seus extremos pola lexislaci&oacute;n
+            espa&ntilde;ola.</span
+          >
+        </p>
+      </ng-container>
+      <ng-container *ngIf="selectedOption === 'option2' && getLang() != 'gl'">
+        <h1>POL&Iacute;TICA DE PRIVACIDAD</h1>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 0pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Esta pol&iacute;tica te informa sobre los tratamientos de datos que
+            se realizan, a trav&eacute;s de la aplicaci&oacute;n web
+            de&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">&nbsp;(en adelante, &ldquo;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">&rdquo;).</span>
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 0pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex">&nbsp;</span>
+        </p>
+        <ol type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Qui&eacute;nes es el Responsable del Tratamiento de tus
+            datos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong><span style="font-family: Roboto-flex">Identidad:</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;NTT DATA Spain, S.L.U. (en adelante, &ldquo;NTT DATA
+            Spain&rdquo;).</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 108%;
+            font-size: 10pt;
+          "
+        >
+          <strong
+            ><span style="font-family: Roboto-flex"
+              >Direcci&oacute;n Postal:&nbsp;</span
+            ></strong
+          ><span style="font-family: Roboto-flex"
+            >Camino Fuente de la Mora 1, 28050, Madrid, Espa&ntilde;a.</span
+          >
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 8pt; text-align: justify">
+          <strong
+            ><span
+              style="line-height: 108%; font-family: Roboto-flex; font-size: 10pt"
+              >Direcci&oacute;n de correo electr&oacute;nico y contacto con el
+              Delegado de Protecci&oacute;n de Datos:</span
+            ></strong
+          ><strong
+            ><span
+              style="line-height: 108%; font-family: Roboto-flex; font-size: 10pt"
+              >&nbsp;&nbsp;</span
+            ></strong
+          ><a
+            href="mailto:data.protection.office@nttdata.com"
+            style="text-decoration: none"
+            ><u
+              ><span
+                style="
+                  line-height: 108%;
+                  font-family: Roboto-flex;
+                  font-size: 10pt;
+                  color: #0563c1;
+                "
+                >data.protection.office@nttdata.com</span
+              ></u
+            ></a
+          ><span style="line-height: 108%; font-family: Roboto-flex; font-size: 10pt"
+            >&nbsp;</span
+          >
+        </p>
+        <ol start="2" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            <a name="_Toc45026898"></a
+            ><a name="_Toc45793008">&iquest;Qu&eacute; datos tratamos?</a>
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 14pt;
+            margin-bottom: 14pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;no est&aacute; dise&ntilde;ada para el tratamiento de datos
+            personales, sin embargo, en el caso de que durante tu
+            interacci&oacute;n con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;nos facilites alg&uacute;n dato personal, los datos
+            personales que tratemos proceder&aacute;n de la informaci&oacute;n
+            que nos facilites al interactuar con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">.</span>
+        </p>
+        <ol start="3" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Con qu&eacute; finalidades y bajo qu&eacute; bases legales
+            tratamos tus datos personales?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >NTT DATA Spain tratar&aacute; tus datos personales con la finalidad
+            de procesar tu interacci&oacute;n con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;y que &eacute;sta pueda responderte, siempre que t&uacute;
+            voluntariamente hayas incorporado datos personales en
+            Rosal.ia.&nbsp;</span
+          ><u
+            ><span style="font-family: Roboto-flex"
+              >Te recordamos que para interactuar con&nbsp;</span
+            ></u
+          ><strong
+            ><u
+              ><span style="font-family: Roboto-flex">Rosal.ia&nbsp;</span></u
+            ></strong
+          ><u
+            ><span style="font-family: Roboto-flex"
+              >no es necesario que incorpores datos personales y que, si lo
+              haces, es una acci&oacute;n libre y voluntaria.&nbsp;</span
+            ></u
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >La base legitimadora de este tratamiento es el consentimiento del
+            usuario sustentado en la acci&oacute;n afirmativa de incorporar
+            datos personales en&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">.</span>
+        </p>
+        <ol start="4" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Por cu&aacute;nto tiempo conservaremos tus datos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 14pt;
+            margin-bottom: 14pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Tus datos se conservar&aacute;n durante el plazo necesario para la
+            finalidad para la que se recabaron, y concretamente, hasta que
+            finalice tu interacci&oacute;n con&nbsp;</span
+          ><strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex">.&nbsp;</span>
+        </p>
+        <p
+          style="
+            margin-top: 14pt;
+            margin-bottom: 14pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <strong><span style="font-family: Roboto-flex">Rosal.ia</span></strong
+          ><span style="font-family: Roboto-flex"
+            >&nbsp;no almacena tus datos personales posteriormente.</span
+          >
+        </p>
+        <ol start="5" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;A qu&eacute; destinatarios se comunicar&aacute;n tus datos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Te informamos que tus datos podr&iacute;an ser comunicados a
+            Encargados del Tratamiento necesarios para el funcionamiento
+            de&nbsp;</span
+          ><strong
+            ><span style="font-family: Roboto-flex">Rosal.ia&nbsp;</span></strong
+          ><span style="font-family: Roboto-flex"
+            >(tales como, Microsoft Azure y OpenAI), algunos de los cuales
+            disponen de centros de proceso y/o soporte ubicados fuera Espacio
+            Econ&oacute;mico Europeo.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Te garantizamos que cuando tus datos pudieran salir del Espacio
+            Econ&oacute;mico Europeo, mantendr&aacute;n el mismo nivel de
+            protecci&oacute;n en base al cumplimiento de las disposiciones
+            previstas en la normativa europea de protecci&oacute;n de datos.
+            Para recibir m&aacute;s informaci&oacute;n sobre las transferencias
+            internacionales de datos de las empresas del Grupo NTT DATA u
+            obtener confirmaci&oacute;n o copia de las garant&iacute;as
+            empleadas, puedes ponerte en contacto con el Delegado de
+            Protecci&oacute;n de Datos de NTT DATA Spain.</span
+          >
+        </p>
+        <ol start="6" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;C&oacute;mo se protegen tus datos personales?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Nos comprometemos a mantener seguros los datos personales,
+            adoptando todas las precauciones razonables para hacerlo.
+            Implementamos todas las medidas organizativas y t&eacute;cnicas
+            necesarias de acuerdo con la normativa vigente contra cualquier
+            acceso no autorizado y modificaci&oacute;n, divulgaci&oacute;n,
+            p&eacute;rdida o destrucci&oacute;n. Exigimos e imponemos
+            contractualmente a los proveedores</span
+          ><span style="font-family: Roboto-flex; letter-spacing: -0.05pt"
+            >&nbsp;de servicios que manejan tus datos personales que hagan lo
+            mismo.</span
+          >
+        </p>
+        <ol start="7" type="1" style="margin: 0pt; padding-left: 0pt">
+          <li
+            style="
+              margin-left: 13.34pt;
+              margin-bottom: 8pt;
+              text-align: justify;
+              line-height: 108%;
+              padding-left: 0.86pt;
+              font-family: Roboto-flex;
+              font-size: 10pt;
+              font-weight: bold;
+            "
+          >
+            &iquest;Cu&aacute;les son tus derechos?
+          </li>
+        </ol>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >Puedes solicitar a NTT DATA Spain confirmaci&oacute;n sobre si tus
+            datos personales est&aacute;n siendo tratados y, en caso afirmativo,
+            acceder a los mismos. Tambi&eacute;n, puedes solicitar la
+            rectificaci&oacute;n de los datos inexactos o, en su caso, solicitar
+            su supresi&oacute;n cuando, entre otros motivos, los datos ya no
+            sean necesarios para los fines para los que se recogieron.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+            font-size: 10pt;
+          "
+        >
+          <span style="font-family: Roboto-flex"
+            >En determinadas circunstancias, es posible solicitar la
+            limitaci&oacute;n del tratamiento de tus datos, en cuyo caso
+            &uacute;nicamente los conservaremos para el ejercicio de acciones o
+            la defensa de reclamaciones. Por &uacute;ltimo, cuando sea
+            procedente, se podr&aacute; ejercitar el derecho de portabilidad
+            para obtener los datos en formato electr&oacute;nico o que se
+            transmitan los mismos a otra entidad.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+          "
+        >
+          <span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >Para ejercitar los citados derechos, puedes escribir al Delegado de
+            Protecci&oacute;n de Datos, acreditando tu identidad, a la siguiente
+            direcci&oacute;n de correo electr&oacute;nico:&nbsp;</span
+          ><a
+            href="mailto:data.protection.office@nttdata.com"
+            style="text-decoration: none"
+            ><u
+              ><span
+                style="
+                  line-height: 115%;
+                  font-family: Roboto-flex;
+                  font-size: 10pt;
+                  color: #0563c1;
+                "
+                >data.protection.office@nttdata.com</span
+              ></u
+            ></a
+          ><span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >. Para ayudarnos a tramitar tu solicitud, te rogamos que indiques
+            en el asunto &ldquo;Ejercicio de Derechos&nbsp;</span
+          ><strong
+            ><span
+              style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+              >Rosal.ia</span
+            ></strong
+          ><span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >&rdquo;.</span
+          >
+        </p>
+        <p
+          style="
+            margin-top: 0pt;
+            margin-bottom: 8pt;
+            text-align: justify;
+            line-height: 115%;
+          "
+        >
+          <span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >Tienes derecho a presentar una reclamaci&oacute;n ante la autoridad
+            competente en materia de protecci&oacute;n de datos (en
+            Espa&ntilde;a,&nbsp;</span
+          ><a href="http://www.aepd.es" style="text-decoration: none"
+            ><u
+              ><span
+                style="
+                  line-height: 115%;
+                  font-family: Roboto-flex;
+                  font-size: 10pt;
+                  color: #0563c1;
+                "
+                >www.aepd.es</span
+              ></u
+            ></a
+          ><span style="line-height: 115%; font-family: Roboto-flex; font-size: 10pt"
+            >) en caso de que tengas conocimiento o consideres que un hecho
+            pueda suponer un incumplimiento de la normativa aplicable en materia
+            de protecci&oacute;n de datos.</span
+          >
+        </p>
+      </ng-container>
+      <ng-container *ngIf="selectedOption === 'option2' && getLang() === 'gl'">
+        <h1>POL&Iacute;TICA DE PRIVACIDADE</h1>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 0cm;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Esta pol&iacute;tica inf&oacute;rmache sobre os tratamentos de
+            datos que se realizan a trav&eacute;s da aplicaci&oacute;n web de
+            <strong>Rosal.ia</strong> (en diante,
+            &ldquo;<strong>Rosal.ia</strong>&rdquo;).</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 0cm;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: decimal;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Quen &eacute; Responsable do Tratamento dos teus datos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Identidade:</span
+            ></strong
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;NTT DATA Spain, S.L.U. (en diante, &ldquo;NTT DATA
+            Spain&rdquo;).</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Direcci&oacute;n Postal:&nbsp;</span
+            ></strong
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Cami&ntilde;o Fuente de la Mora 1, 28050, Madrid,
+            Espa&ntilde;a.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Direcci&oacute;n de correo electr&oacute;nico e contacto co
+              Delegado de Protecci&oacute;n de Datos: &nbsp;&nbsp;</span
+            ></strong
+          ><a href="mailto:data.protection.office@nttdata.com"
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 107%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >data.protection.office@nttdata.com</span
+            ></a
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Que datos tratamos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 13px;
+            font-family: 'Calibri', sans-serif;
+            text-align: justify;
+            color: #595959;
+            line-height: 115%;
+          "
+        >
+          <strong
+            ><span
+              style="
+                line-height: 115%;
+                font-family: 'Roboto-flex', sans-serif;
+                color: white;
+              "
+              >Rosal.ia</span
+            ></strong
+          ><span
+            style="
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+              color: white;
+            "
+            >&nbsp;non est&aacute; dese&ntilde;ada para o tratamento de datos
+            persoais. Con todo, no caso de que durante a t&uacute;a
+            interacci&oacute;n con <strong>Rosal.ia</strong> nos facilites
+            alg&uacute;n dato persoal, os datos persoais que tratemos
+            proceder&aacute;n da informaci&oacute;n que nos facilites ao
+            interactuar con <strong>Rosal.ia</strong>.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Con que finalidades e baixo que bases legais tratamos os teus
+                  datos persoais?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >NTT DATA Spain tratar&aacute; os teus datos persoais coa finalidade
+            de procesar a t&uacute;a interacci&oacute;n con
+            <strong>Rosal.ia</strong> e que esta poida responderche, sempre que
+            ti voluntariamente incorpores datos persoais en Rosal.ia.
+            Lembr&aacute;mosche<u
+              >&nbsp;que, para interactuar con
+              <strong>Rosal.ia,&nbsp;</strong>non &eacute; necesario que
+              facilites datos persoais e que, se o fas, &eacute; unha
+              acci&oacute;n libre e voluntaria.&nbsp;</u
+            ></span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >A base lexitimadora deste tratamento &eacute; o consentimento da
+            persoa usuaria sustentado na acci&oacute;n afirmativa de incorporar
+            datos persoais en <strong>Rosal.ia</strong>.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Por canto tempo conservaremos os teus datos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Os teus datos conservaranse durante o prazo necesario para a
+            finalidade para a que se recolleron e, concretamente, ata que
+            finalice a t&uacute;a interacci&oacute;n con
+            <strong>Rosal.ia</strong>.&nbsp;</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <strong
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 115%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >Rosal.ia</span
+            ></strong
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;non almacena os teus datos persoais posteriormente.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >A quen se lle comunicar&aacute;n os teus datos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Inform&aacute;mosche que os teus datos poder&iacute;an ser
+            comunicados a empresas Encargadas do Tratamento necesarias para o
+            funcionamento de <strong>Rosal.ia&nbsp;</strong>(tales como
+            Microsoft Azure e OpenAI), algunhas das cales dispo&ntilde;en de
+            centros de proceso e/ou soporte situados f&oacute;ra do Espazo
+            Econ&oacute;mico Europeo.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Garant&iacute;mosche que, no caso de que os teus datos saian do
+            Espazo Econ&oacute;mico Europeo, manter&aacute;n o mesmo nivel de
+            protecci&oacute;n, en base ao cumprimento das disposici&oacute;ns
+            previstas na normativa europea de protecci&oacute;n de datos. Para
+            recibir m&aacute;is informaci&oacute;n sobre as transferencias
+            internacionais de datos das empresas do Grupo NTT DATA ou obter
+            confirmaci&oacute;n ou copia das garant&iacute;as empregadas, podes
+            po&ntilde;erte en contacto co Delegado de Protecci&oacute;n de Datos
+            de NTT DATA Spain.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Como se protexen os teus datos persoais?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Compromet&eacute;monos a manter seguros os teus datos persoais
+            adoptando todas as precauci&oacute;ns razoables para facelo.
+            Implementamos todas as medidas organizativas e t&eacute;cnicas
+            necesarias de acordo coa normativa vixente contra calquera acceso
+            non autorizado e contra a modificaci&oacute;n, divulgaci&oacute;n,
+            perda ou destruci&oacute;n. Esiximos e impo&ntilde;emos
+            contractualmente aos proveedores</span
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >&nbsp;de servizos que manexan os teus datos persoais que fagan o
+            mesmo.</span
+          >
+        </p>
+        <div
+          style="
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8pt;
+            margin-left: 0cm;
+            line-height: 107%;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+          "
+        >
+          <ol
+            style="
+              margin-bottom: 0cm;
+              list-style-type: undefined;
+              margin-left: 4.199999999999999px;
+            "
+          >
+            <li
+              style="
+                margin-top: 0cm;
+                margin-right: 0cm;
+                margin-bottom: 8pt;
+                margin-left: 0cm;
+                line-height: 107%;
+                font-size: 15px;
+                font-family: 'Calibri', sans-serif;
+              "
+            >
+              <strong
+                ><span
+                  style="
+                    line-height: 107%;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-family: 'Roboto-flex', sans-serif;
+                    font-size: 10pt;
+                  "
+                  >Cales son os teus dereitos?</span
+                ></strong
+              >
+            </li>
+          </ol>
+        </div>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Podes solicitar a NTT DATA Spain confirmaci&oacute;n sobre se os
+            teus datos persoais est&aacute;n sendo tratados e, en caso
+            afirmativo, acceder a estes. Tam&eacute;n podes solicitar a
+            rectificaci&oacute;n dos datos inexactos ou solicitar a s&uacute;a
+            supresi&oacute;n cando, entre outros motivos, os datos xa non sexan
+            necesarios para os fins para os que se recolleron.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >En determinadas circunstancias, &eacute; posible solicitar a
+            limitaci&oacute;n do tratamento dos teus datos. Nese caso,
+            unicamente os conservaremos para o exercicio de acci&oacute;ns ou a
+            defensa de reclamaci&oacute;ns. Por &uacute;ltimo, cando sexa
+            procedente, podes exercitar o dereito de portabilidade para obter os
+            datos en formato electr&oacute;nico ou que se transmitan a outra
+            entidade.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 115%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Para exercitar os citados dereitos, podes escribir ao Delegado de
+            Protecci&oacute;n de Datos, acreditando a t&uacute;a identidade,
+            &aacute; seguinte direcci&oacute;n de correo
+            electr&oacute;nico:&nbsp;</span
+          ><a href="mailto:data.protection.office@nttdata.com"
+            ><span
+              style="
+                font-size: 13px;
+                line-height: 115%;
+                font-family: 'Roboto-flex', sans-serif;
+              "
+              >data.protection.office@nttdata.com</span
+            ></a
+          ><span
+            style="
+              font-size: 13px;
+              line-height: 115%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >. Para axudarnos a tramitar a t&uacute;a solicitude,
+            rog&aacute;mosche que indiques no asunto &ldquo;Exercicio de
+            Dereitos <strong>Rosal.ia</strong>&rdquo;.</span
+          >
+        </p>
+        <p
+          style="
+            margin-right: 0cm;
+            margin-left: 0cm;
+            font-size: 15px;
+            font-family: 'Calibri', sans-serif;
+            margin-top: 0cm;
+            margin-bottom: 8pt;
+            line-height: 107%;
+            text-align: justify;
+          "
+        >
+          <span
+            style="
+              font-size: 13px;
+              line-height: 107%;
+              font-family: 'Roboto-flex', sans-serif;
+            "
+            >Tes dereito a presentar unha reclamaci&oacute;n ante a autoridade
+            competente en materia de protecci&oacute;n de datos (en
+            Espa&ntilde;a, www.aepd.es) se tes co&ntilde;ecemento ou consideras
+            que un feito pode supo&ntilde;er un incumprimento da normativa
+            aplicable</span
+          >
+        </p>
+      </ng-container>
+    </div>
+  </div>
+</div>
